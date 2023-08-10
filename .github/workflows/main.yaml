@@ -23,7 +23,7 @@ jobs:
       - name: Print kind path
         run: echo 'kind binary ... ' && which kind
       - name: Print kind path again
-        run: sh kind.sh
+        run: ls -lah && sh .github/workflows/kind.sh
       - name: echo
         run: echo end
       -
