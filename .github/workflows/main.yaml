@@ -22,6 +22,10 @@ jobs:
 
       - name: Print kind path
         run: echo 'kind binary ... ' && which kind
+      - name: Print kind path again
+        run: sh kind.sh
+      - name: echo
+        run: echo end
       -
         name: Setup Go 1.19
         uses: actions/setup-go@v3
