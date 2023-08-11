@@ -50,7 +50,7 @@ test: test-e2e ## Run complete testsuite.
 .PHONY: test
 
 test-e2e: ## Run testsuite of end-to-end task runs.
-	go test -v -count=1 -timeout 10m ./test/e2e/... -ods-debug
+	go test -v -count=1 -timeout 10m ./test/e2e/...
 .PHONY: test-e2e
 
 ##@ CI
