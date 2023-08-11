@@ -13,12 +13,7 @@ env:
 jobs:
   build:
     name: Build and release images
-    needs: setup
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-      id-token: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -28,6 +23,10 @@ jobs:
         run: |
           IMAGE_TAG=$(echo ${{ github.event.release.tag_name }} | sed 's/v//')
           echo "::set-output name=imageTag::$IMAGE_TAG"
+
+      - id: createImageBase
+        run: |
+          echo "::set-output name=imageBase::${IMAGE_BASE,,}"
 
       - name: Setup Docker buildx
         uses: docker/setup-buildx-action@v2
@@ -44,6 +43,6 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          file: build/package/Dockerfile.go-toolset
+          file: build/images/Dockerfile.go-toolset
           push: true
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_BASE }}/go-toolset:${{ outputs.imageTag }}
+          tags: ${{ env.REGISTRY }}/${{steps.createImageBase.outputs.imageBase}}/go-toolset:${{ outputs.imageTag }}
