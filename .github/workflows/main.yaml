@@ -51,6 +51,6 @@ jobs:
         if: ${{ github.event_name != 'pull_request' }}
         run: |
           echo "::group::Push go-toolset to ghcr.io"
-          docker tag localhost:5000/ods/go-toolset:latest ghcr.io/${{ env.IMAGE_BASE }}/go-toolset:latest
-          docker push ghcr.io/${{ env.IMAGE_BASE }}/go-toolset:latest
+          docker tag localhost:5000/ods/go-toolset:latest ghcr.io/${IMAGE_BASE,,}/go-toolset:latest
+          docker push ghcr.io/${IMAGE_BASE,,}/go-toolset:latest
           echo "::endgroup::"
