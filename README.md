@@ -5,21 +5,16 @@ Tekton task for use with [ODS Pipeline](https://github.com/opendevstack/ods-pipe
 ## Usage
 
 ```yaml
-pipelines:
-- tasks:
-  - name: build
-    taskRef:
-      resolver: git
-      params:
-      - name: url
-        value: https://github.com/bix-digital/ods-pipeline-v1-go-build.git
-      - name: revision
-        value: latest
-      - name: pathInRepo
-        value: tasks/ods-pipeline-v1-go-build.yaml
-      workspaces:
-      - name: source
-        workspace: shared-workspace
+tasks:
+- name: build
+  taskRef:
+    resolver: git
+    params:
+    - { name: url, value: https://github.com/bix-digital/ods-pipeline-v1-go-build.git }
+    - { name: revision, value: latest }
+    - { name: pathInRepo, value: tasks/ods-pipeline-v1-go-build.yaml }
+    workspaces:
+    - { name: source, workspace: shared-workspace }
 ```
 
 See the [documentation](https://github.com/BIX-Digital/ods-pipeline-go/blob/main/docs/ods-pipeline-v1-go-build.adoc) for details and available parameters.
