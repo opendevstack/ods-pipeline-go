@@ -8,6 +8,7 @@ on:
 
 env:
   IMAGE_BASE: ${{ github.repository }}
+  IMAGE_NAME: go-toolset
 
 jobs:
   tests:
@@ -41,7 +42,7 @@ jobs:
         name: Push images to ghcr.io
         if: ${{ github.event_name != 'pull_request' }}
         run: |
-          echo "::group::Push go-toolset to ghcr.io"
-          docker tag localhost:5000/ods-pipeline/go-toolset:latest ghcr.io/${IMAGE_BASE,,}/go-toolset:latest
-          docker push ghcr.io/${IMAGE_BASE,,}/go-toolset:latest
+          echo "::group::Push ${IMAGE_NAME} to ghcr.io"
+          docker tag localhost:5000/ods-pipeline/${IMAGE_NAME}:latest ghcr.io/${IMAGE_BASE,,}/${IMAGE_NAME}:latest
+          docker push ghcr.io/${IMAGE_BASE,,}/${IMAGE_NAME}:latest
           echo "::endgroup::"
