@@ -34,7 +34,7 @@ func testMain(m *testing.M) int {
 		cc,
 		ott.InstallODSPipeline(),
 		ttr.InstallTaskFromPath(
-			filepath.Join(rootPath, "build/tasks/ods-pipeline-v1-go-build.yaml"),
+			filepath.Join(rootPath, "build/tasks/build.yaml"),
 			nil,
 		),
 	)
