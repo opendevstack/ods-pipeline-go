@@ -26,7 +26,7 @@ func TestBuildGoTask(t *testing.T) {
 			"cache-build": "false",
 		}),
 		withGoWorkspace(t, "go-sample-app"),
-		ttr.AfterRun(func(config *ttr.TaskRunConfig, run *tekton.TaskRun) {
+		ttr.AfterRun(func(config *ttr.TaskRunConfig, run *tekton.TaskRun, logs bytes.Buffer) {
 			wd := config.WorkspaceConfigs["source"].Dir
 			cmd := exec.Command(wd + "/docker/app")
 			b, err := cmd.Output()
@@ -58,7 +58,7 @@ func TestBuildGoTaskLintError(t *testing.T) {
 		),
 		withGoWorkspace(t, "go-sample-app-lint-error"),
 		ttr.ExpectFailure(),
-		ttr.AfterRun(func(config *ttr.TaskRunConfig, run *tekton.TaskRun) {
+		ttr.AfterRun(func(config *ttr.TaskRunConfig, run *tekton.TaskRun, logs bytes.Buffer) {
 			ott.AssertFileContent(t,
 				config.WorkspaceConfigs["source"].Dir,
 				filepath.Join(pipelinectxt.LintReportsPath, "report.txt"),
@@ -82,7 +82,7 @@ func TestBuildGoSubdirectory(t *testing.T) {
 			return nil
 		}),
 		ttr.ExpectFailure(),
-		ttr.AfterRun(func(config *ttr.TaskRunConfig, run *tekton.TaskRun) {
+		ttr.AfterRun(func(config *ttr.TaskRunConfig, run *tekton.TaskRun, logs bytes.Buffer) {
 			ott.AssertFilesExist(
 				t, config.WorkspaceConfigs["source"].Dir,
 				fmt.Sprintf("%s/docker/Dockerfile", subdir),
@@ -113,7 +113,7 @@ func createAppInSubDirectory(t *testing.T, wsDir string, subdir string, sampleAp
 
 func withGoWorkspace(t *testing.T, dir string, opts ...ttr.WorkspaceOpt) ttr.TaskRunOpt {
 	return ott.WithGitSourceWorkspace(
-		t, filepath.Join("../testdata/workspaces", dir),
+		t, filepath.Join("../testdata/workspaces", dir), namespaceConfig.Name,
 		append([]ttr.WorkspaceOpt{cleanModcacheOpt(t, dir)}, opts...)...,
 	)
 }

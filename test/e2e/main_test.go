@@ -17,6 +17,10 @@ var (
 )
 
 func TestMain(m *testing.M) {
+	os.Exit(testMain(m))
+}
+
+func testMain(m *testing.M) int {
 	cc, err := ttr.StartKinDCluster(
 		ttr.LoadImage(ttr.ImageBuildConfig{
 			Dockerfile: "build/images/Dockerfile.go-toolset",
@@ -39,7 +43,7 @@ func TestMain(m *testing.M) {
 	}
 	defer cleanup()
 	namespaceConfig = nc
-	os.Exit(m.Run())
+	return m.Run()
 }
 
 func runTask(opts ...ttr.TaskRunOpt) error {

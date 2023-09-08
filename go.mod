@@ -3,7 +3,7 @@ module github.com/bix-digital/ods-pipeline-go
 go 1.19
 
 require (
-	github.com/opendevstack/ods-pipeline v0.13.3-0.20230901103850-8c1be8d20ca3
+	github.com/opendevstack/ods-pipeline v0.13.3-0.20230908135016-09dda3bbf622
 	github.com/tektoncd/pipeline v0.49.0
 )
 
