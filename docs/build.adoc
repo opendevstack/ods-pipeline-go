@@ -1,6 +1,6 @@
 // File is generated; DO NOT EDIT.
 
-= ods-pipeline-v1-go-build
+= ods-pipeline-go-build
 
 Builds Go applications.
 

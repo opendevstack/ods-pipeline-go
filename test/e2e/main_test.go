@@ -13,7 +13,7 @@ import (
 var (
 	namespaceConfig *ttr.NamespaceConfig
 	rootPath        = "../.."
-	taskName        = "ods-pipeline-v1-go-build"
+	taskName        = "ods-pipeline-go-build"
 )
 
 func TestMain(m *testing.M) {

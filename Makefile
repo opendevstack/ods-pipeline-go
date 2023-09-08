@@ -33,15 +33,15 @@ tasks: ## Render tasks. Use VERSION=1.0.0 make tasks to render specific version.
 	go run github.com/opendevstack/ods-pipeline/cmd/taskmanifest \
 		-data ImageRepository=ghcr.io/bix-digital/ods-pipeline-go \
 		-data Version=$(VERSION) \
-		-template build/tasks/ods-pipeline-v1-go-build.yaml \
-		-destination tasks/ods-pipeline-v1-go-build.yaml
+		-template build/tasks/build.yaml \
+		-destination tasks/build.yaml
 .PHONY: tasks
 
 docs: tasks ## Render documentation for tasks.
 	go run github.com/opendevstack/ods-pipeline/cmd/taskdoc \
-		-task tasks/ods-pipeline-v1-go-build.yaml \
-		-description build/docs/ods-pipeline-v1-go-build.adoc \
-		-destination docs/ods-pipeline-v1-go-build.adoc
+		-task tasks/build.yaml \
+		-description build/docs/build.adoc \
+		-destination docs/build.adoc
 .PHONY: docs
 
 ##@ Testing

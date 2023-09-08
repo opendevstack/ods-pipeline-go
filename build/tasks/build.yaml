@@ -1,14 +1,12 @@
-# File is generated; DO NOT EDIT.
-
 apiVersion: tekton.dev/v1beta1
 kind: 'Task'
 metadata:
-  name: 'ods-pipeline-v1-go-build'
+  name: 'ods-pipeline-go-build'
 spec:
   description: |
     Builds Go applications.
 
-    See https://github.com/bix-digital/ods-pipeline-go/blob/vlatest/docs/ods-pipeline-v1-go-build.adoc
+    See https://github.com/bix-digital/ods-pipeline-go/blob/v{{.Version}}/docs/build.adoc
   params:
     - name: working-dir
       description: |
@@ -60,7 +58,7 @@ spec:
   steps:
     - name: go-build
       # Image is built from build/images/Dockerfile.go-toolset.
-      image: 'ghcr.io/bix-digital/ods-pipeline-go/go-toolset:latest'
+      image: '{{.ImageRepository}}/go-toolset:{{.Version}}'
       env:
         - name: HOME
           value: '/tekton/home'
