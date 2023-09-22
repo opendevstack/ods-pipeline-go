@@ -5,7 +5,7 @@
 Builds Go applications.
 
 The exact build recipe can be found at
-link:https://github.com/bix-digital/ods-pipeline-go/blob/master/build/images/scripts/go-build.sh[build/images/scripts/go-build.sh].
+link:https://github.com/opendevstack/ods-pipeline-go/blob/main/build/images/scripts/build.sh[build/images/scripts/build.sh].
 
 The following provides an overview of the performed steps:
 
@@ -77,7 +77,7 @@ without leading `./` and trailing `/`.
 
 | build-script
 | /usr/local/bin/go-build
-| Build script to execute. The link:https://github.com/bix-digital/ods-pipeline-go/blob/master/build/images/scripts/go-build.sh[default script] is located in the container image. If you specify a relative path instead, it will be resolved from the workspace. See the task definition for details how the build script is invoked.
+| Build script to execute. The link:https://github.com/opendevstack/ods-pipeline-go/blob/main/build/images/scripts/go-build.sh[default script] is located in the container image. If you specify a relative path instead, it will be resolved from the workspace. See the task definition for details how the build script is invoked.
 
 
 | pre-test-script

@@ -1,4 +1,4 @@
-module github.com/bix-digital/ods-pipeline-go
+module github.com/opendevstack/ods-pipeline-go
 
 go 1.19
 

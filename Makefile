@@ -31,7 +31,7 @@ image-go-toolset: ## Build go-toolset image.
 
 tasks: ## Render tasks. Use VERSION=1.0.0 make tasks to render specific version.
 	go run github.com/opendevstack/ods-pipeline/cmd/taskmanifest \
-		-data ImageRepository=ghcr.io/bix-digital/ods-pipeline-go \
+		-data ImageRepository=ghcr.io/opendevstack/ods-pipeline-go \
 		-data Version=$(VERSION) \
 		-template build/tasks/build.yaml \
 		-destination tasks/build.yaml

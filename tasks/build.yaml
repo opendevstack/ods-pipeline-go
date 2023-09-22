@@ -1,14 +1,14 @@
 # File is generated; DO NOT EDIT.
 
 apiVersion: tekton.dev/v1beta1
-kind: 'Task'
+kind: Task
 metadata:
-  name: 'ods-pipeline-go-build'
+  name: ods-pipeline-go-build
 spec:
   description: |
     Builds Go applications.
 
-    See https://github.com/bix-digital/ods-pipeline-go/blob/vlatest/docs/build.adoc
+    See https://github.com/opendevstack/ods-pipeline-go/blob/vlatest/docs/build.adoc
   params:
     - name: working-dir
       description: |
@@ -44,7 +44,7 @@ spec:
     - name: build-script
       description: >-
         Build script to execute. The
-        link:https://github.com/bix-digital/ods-pipeline-go/blob/master/build/images/scripts/go-build.sh[default script]
+        link:https://github.com/opendevstack/ods-pipeline-go/blob/main/build/images/scripts/go-build.sh[default script]
         is located in the container image. If you specify a relative path
         instead, it will be resolved from the workspace. See the task definition
         for details how the build script is invoked.
@@ -60,7 +60,7 @@ spec:
   steps:
     - name: go-build
       # Image is built from build/images/Dockerfile.go-toolset.
-      image: 'ghcr.io/bix-digital/ods-pipeline-go/go-toolset:latest'
+      image: 'ghcr.io/opendevstack/ods-pipeline-go/go-toolset:latest'
       env:
         - name: HOME
           value: '/tekton/home'
