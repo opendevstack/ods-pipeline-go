@@ -10,4 +10,8 @@ listed in the changelog.
 
 ## [Unreleased]
 
+## [0.1.0] - 2023-09-29
+
+Initial version.
+
 NOTE: This version is based on v0.13.2 of the task `ods-build-go` in the [ods-pipeline](https://github.com/opendevstack/ods-pipeline) repository.
