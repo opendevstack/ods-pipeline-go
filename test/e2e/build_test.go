@@ -12,7 +12,6 @@ import (
 
 	ott "github.com/opendevstack/ods-pipeline/pkg/odstasktest"
 	"github.com/opendevstack/ods-pipeline/pkg/pipelinectxt"
-	"github.com/opendevstack/ods-pipeline/pkg/tasktesting"
 	ttr "github.com/opendevstack/ods-pipeline/pkg/tektontaskrun"
 	cp "github.com/otiai10/copy"
 	tekton "github.com/tektoncd/pipeline/pkg/apis/pipeline/v1beta1"
@@ -103,7 +102,7 @@ func createAppInSubDirectory(t *testing.T, wsDir string, subdir string, sampleAp
 		t.Fatal(err)
 	}
 	err = cp.Copy(
-		filepath.Join("../../test", tasktesting.TestdataWorkspacesPath, sampleApp),
+		filepath.Join("../../test/testdata/workspaces", sampleApp),
 		filepath.Join(wsDir, subdir),
 	)
 	if err != nil {

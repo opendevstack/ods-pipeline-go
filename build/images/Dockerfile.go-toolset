@@ -12,9 +12,9 @@ RUN curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/$GOLANGC
 RUN go install github.com/jstemmer/go-junit-report/v2@$GO_JUNIT_REPORT_VERSION
 
 # Add scripts
-ADD https://raw.githubusercontent.com/opendevstack/ods-pipeline/master/build/package/scripts/cache-build.sh /usr/local/bin/cache-build
-ADD https://raw.githubusercontent.com/opendevstack/ods-pipeline/master/build/package/scripts/copy-build-if-cached.sh /usr/local/bin/copy-build-if-cached
-ADD https://raw.githubusercontent.com/opendevstack/ods-pipeline/master/build/package/scripts/copy-artifacts.sh /usr/local/bin/copy-artifacts
+ADD https://raw.githubusercontent.com/opendevstack/ods-pipeline/v0.14.0-preview.1/build/images/scripts/cache-build.sh /usr/local/bin/cache-build
+ADD https://raw.githubusercontent.com/opendevstack/ods-pipeline/v0.14.0-preview.1/build/images/scripts/copy-build-if-cached.sh /usr/local/bin/copy-build-if-cached
+ADD https://raw.githubusercontent.com/opendevstack/ods-pipeline/v0.14.0-preview.1/build/images/scripts/copy-artifacts.sh /usr/local/bin/copy-artifacts
 COPY build/images/scripts/build.sh /usr/local/bin/go-build
 RUN chmod +rx /usr/local/bin/go-build && \
     chmod +rx /usr/local/bin/cache-build && \
