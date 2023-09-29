@@ -8,7 +8,7 @@ spec:
   description: |
     Builds Go applications.
 
-    See https://github.com/opendevstack/ods-pipeline-go/blob/v0.1.0/docs/build.adoc
+    See https://github.com/opendevstack/ods-pipeline-go/blob/vlatest/docs/build.adoc
   params:
     - name: working-dir
       description: |
@@ -67,7 +67,7 @@ spec:
   steps:
     - name: go-build
       # Image is built from build/images/Dockerfile.go-toolset.
-      image: 'ghcr.io/opendevstack/ods-pipeline-go/go-toolset:0.1.0'
+      image: 'ghcr.io/opendevstack/ods-pipeline-go/go-toolset:latest'
       env:
         - name: HOME
           value: '/tekton/home'
