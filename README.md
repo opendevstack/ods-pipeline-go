@@ -13,7 +13,7 @@ tasks:
     resolver: git
     params:
     - { name: url, value: https://github.com/opendevstack/ods-pipeline-go.git }
-    - { name: revision, value: v0.1.2 }
+    - { name: revision, value: main }
     - { name: pathInRepo, value: tasks/build.yaml }
     workspaces:
     - { name: source, workspace: shared-workspace }
