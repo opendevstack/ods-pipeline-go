@@ -10,6 +10,12 @@ listed in the changelog.
 
 ## [Unreleased]
 
+## [0.1.1] - 2023-09-29
+
+### Fixed
+
+- The release workflow did not work properly for 0.1.0.
+
 ## [0.1.0] - 2023-09-29
 
 Initial version.
