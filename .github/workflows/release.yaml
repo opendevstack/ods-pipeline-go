@@ -45,4 +45,4 @@ jobs:
           context: .
           file: build/images/Dockerfile.go-toolset
           push: true
-          tags: ${{ env.REGISTRY }}/${{steps.createImageBase.outputs.imageBase}}/go-toolset:${{ outputs.imageTag }}
+          tags: ${{ env.REGISTRY }}/${{steps.createImageBase.outputs.imageBase}}/go-toolset:${{steps.createImageTag.outputs.imageTag}}
