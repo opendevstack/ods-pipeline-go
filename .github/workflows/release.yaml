@@ -5,10 +5,9 @@ on:
       - released
 
 env:
-  # Use docker.io for Docker Hub if empty
   REGISTRY: ghcr.io
-  # github.repository as <account>/<repo>
   IMAGE_BASE: ${{ github.repository }}
+  IMAGE_NAME: go-toolset
 
 jobs:
   build:
@@ -43,6 +42,6 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          file: build/images/Dockerfile.go-toolset
+          file: build/images/Dockerfile.${{env.IMAGE_NAME}}
           push: true
-          tags: ${{env.REGISTRY}}/${{steps.createImageBase.outputs.imageBase}}/go-toolset:${{steps.createImageTag.outputs.imageTag}}
+          tags: ${{env.REGISTRY}}/${{steps.createImageBase.outputs.imageBase}}/${{env.IMAGE_NAME}}:${{steps.createImageTag.outputs.imageTag}}
