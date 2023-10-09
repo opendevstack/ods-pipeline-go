@@ -14,7 +14,7 @@ import (
 	"github.com/opendevstack/ods-pipeline/pkg/pipelinectxt"
 	ttr "github.com/opendevstack/ods-pipeline/pkg/tektontaskrun"
 	cp "github.com/otiai10/copy"
-	tekton "github.com/tektoncd/pipeline/pkg/apis/pipeline/v1beta1"
+	tekton "github.com/tektoncd/pipeline/pkg/apis/pipeline/v1"
 )
 
 func TestBuildGoTask(t *testing.T) {
