@@ -10,6 +10,8 @@ listed in the changelog.
 
 ## [Unreleased]
 
+## [0.3.0] - 2023-11-21
+
 ### Changed
 
 - Update Go from 1.18 to 1.20, and `golangci-lint` and `go-junit-report` to latest versions ([#6](https://github.com/opendevstack/ods-pipeline-go/pull/6))
