@@ -1,14 +1,9 @@
 # File is generated; DO NOT EDIT.
-
-apiVersion: tekton.dev/v1
-kind: Task
+apiVersion: tekton.dev/v1alpha1
+kind: StepAction
 metadata:
   name: ods-pipeline-go-build
 spec:
-  description: |
-    Builds Go applications.
-
-    See https://github.com/opendevstack/ods-pipeline-go/blob/v0.3.0/docs/build.adoc
   params:
     - name: working-dir
       description: |
@@ -56,52 +51,48 @@ spec:
         instead, it will be resolved from the workspace. See the task definition
         for details how the build script is invoked.
       type: string
-      default: "/usr/local/bin/go-build-script"
+      default: "/usr/local/bin/go-build"
     - name: pre-test-script
       description: Script to execute before running tests, relative to the working directory.
       type: string
       default: ""
+    - name: private-cert
+      description: Volume mount name
+      type: string
+    - name: debug
+      description: Whether to turn on debug mode
+      type: string
+      default: "false"
+    - name: source
+      description: Path to source workspace
+      type: string
   results:
     - description: The cache location that the build task used. If caching is not enabled this will be an empty string.
       name: build-reused-from-location
-  steps:
-    - name: go-build
-      # Image is built from build/images/Dockerfile.go-toolset.
-      image: 'ghcr.io/opendevstack/ods-pipeline-go/go-toolset:0.3.0'
-      env:
-        - name: HOME
-          value: '/tekton/home'
-        - name: CI
-          value: "true"
-        - name: DEBUG
-          valueFrom:
-            configMapKeyRef:
-              key: debug
-              name: ods-pipeline
-      command: [ "go-build-action" ]
-      args: [
-        "-build-extra-inputs=$(params.build-extra-inputs)",
-        "-build-reused-from-location-path=$(results.build-reused-from-location.path)",
-        "-build-script=$(params.build-script)",
-        "-cache-build=$(params.cache-build)",
-        "-debug=${DEBUG}",
-        "-enable-cgo=$(params.enable-cgo)",
-        "-go-os=$(params.go-os)",
-        "-go-arch=$(params.go-arch)",
-        "-output-dir=$(params.output-dir)",
-        "-pre-test-script=$(params.pre-test-script)",
-        "-working-dir=$(params.working-dir)",
-      ]
-      volumeMounts:
-        - mountPath: /etc/ssl/certs/private-cert.pem
-          name: private-cert
-          readOnly: true
-          subPath: tls.crt
-      workingDir: $(workspaces.source.path)
-  volumes:
-    - name: private-cert
-      secret:
-        secretName: ods-private-cert
-        optional: true
-  workspaces:
-    - name: source
+  # Image is built from build/images/Dockerfile.go-toolset.
+  image: 'ghcr.io/opendevstack/ods-pipeline-go/go-toolset:0.3.0'
+  env:
+    - name: HOME
+      value: '/tekton/home'
+    - name: CI
+      value: "true"
+  command: [ "go-build-action" ]
+  args: [
+    "-build-extra-inputs=$(params.build-extra-inputs)",
+    "-build-reused-from-location-path=$(params.build-reused-from-location-path)",
+    "-build-script=$(params.build-script)",
+    "-cache-build=$(params.cache-build)",
+    "-debug=$(params.debug)",
+    "-enable-cgo=$(params.enable-cgo)",
+    "-go-os=$(params.go-os)",
+    "-go-arch=$(params.go-arch)",
+    "-output-dir=$(params.output-dir)",
+    "-pre-test-script=$(params.pre-test-script)",
+    "-working-dir=$(params.working-dir)",
+  ]
+  volumeMounts:
+    - mountPath: /etc/ssl/certs/private-cert.pem
+      name: $(params.private-cert)
+      readOnly: true
+      subPath: tls.crt
+  workingDir: $(params.source)
