@@ -27,18 +27,29 @@ image-go-toolset: ## Build go-toolset image.
 .PHONY: image-go-toolset
 
 tasks: ## Render tasks. Use VERSION=1.0.0 make tasks to render specific version.
-	go run github.com/opendevstack/ods-pipeline/cmd/taskmanifest \
+	go run github.com/opendevstack/ods-pipeline/cmd/render-manifest \
 		-data ImageRepository=ghcr.io/opendevstack/ods-pipeline-go \
 		-data Version=$$(cat version) \
 		-template build/tasks/build.yaml \
 		-destination tasks/build.yaml
 .PHONY: tasks
 
-docs: tasks ## Render documentation for tasks.
-	go run github.com/opendevstack/ods-pipeline/cmd/taskdoc \
-		-task tasks/build.yaml \
-		-description build/docs/build.adoc \
-		-destination docs/build.adoc
+step-actions: ## Render step-actions. Use VERSION=1.0.0 make step-actions to render specific version.
+	go run github.com/opendevstack/ods-pipeline/cmd/render-manifest \
+		-data ImageRepository=ghcr.io/opendevstack/ods-pipeline-go \
+		-data Version=$$(cat version) \
+		-template build/step-actions/build.yaml \
+		-destination step-actions/build.yaml
+.PHONY: step-actions
+
+docs: tasks step-actions ## Render documentation for tasks and step-actions.
+	go run github.com/opendevstack/ods-pipeline/cmd/render-doc \
+		-manifest=step-actions/build.yaml \
+		-destination=docs/step-action-build.adoc
+	go run github.com/opendevstack/ods-pipeline/cmd/render-doc \
+		-manifest=tasks/build.yaml \
+		-description=build/docs/build.adoc \
+		-destination=docs/task-build.adoc
 .PHONY: docs
 
 ##@ Testing

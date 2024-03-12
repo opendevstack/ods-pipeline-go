@@ -6,7 +6,7 @@ spec:
   description: |
     Builds Go applications.
 
-    See https://github.com/opendevstack/ods-pipeline-go/blob/v{{.Version}}/docs/build.adoc
+    See https://github.com/opendevstack/ods-pipeline-go/blob/v{{.Version}}/docs/task-build.adoc
   params:
     - name: working-dir
       description: |
@@ -49,7 +49,7 @@ spec:
     - name: build-script
       description: >-
         Build script to execute. The
-        link:https://github.com/opendevstack/ods-pipeline-go/blob/main/build/images/scripts/go-build.sh[default script]
+        link:https://github.com/opendevstack/ods-pipeline-go/blob/main/build/images/scripts/build.sh[default script]
         is located in the container image. If you specify a relative path
         instead, it will be resolved from the workspace. See the task definition
         for details how the build script is invoked.

@@ -19,7 +19,7 @@ tasks:
     - { name: source, workspace: shared-workspace }
 ```
 
-See the [documentation](https://github.com/opendevstack/ods-pipeline-go/blob/main/docs/build.adoc) for details and available parameters.
+See the [documentation](https://github.com/opendevstack/ods-pipeline-go/blob/main/docs/task-build.adoc) for details and available parameters.
 
 ## About this repository
 

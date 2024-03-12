@@ -1,5 +1,3 @@
-# File is generated; DO NOT EDIT.
-
 apiVersion: tekton.dev/v1alpha1
 kind: StepAction
 metadata:
@@ -75,7 +73,7 @@ spec:
     - description: The cache location that the build task used. If caching is not enabled this will be an empty string.
       name: build-reused-from-location
   # Image is built from build/images/Dockerfile.go-toolset.
-  image: 'ghcr.io/opendevstack/ods-pipeline-go/go-toolset:0.3.0'
+  image: '{{.ImageRepository}}/go-toolset:{{.Version}}'
   env:
     - name: HOME
       value: '/tekton/home'
