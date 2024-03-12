@@ -13,11 +13,13 @@ RUN curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/$GOLANGC
 RUN go install github.com/jstemmer/go-junit-report/v2@$GO_JUNIT_REPORT_VERSION
 
 # Add scripts
-ADD https://raw.githubusercontent.com/opendevstack/ods-pipeline/v0.14.0-preview.1/build/images/scripts/cache-build.sh /usr/local/bin/cache-build
-ADD https://raw.githubusercontent.com/opendevstack/ods-pipeline/v0.14.0-preview.1/build/images/scripts/copy-build-if-cached.sh /usr/local/bin/copy-build-if-cached
-ADD https://raw.githubusercontent.com/opendevstack/ods-pipeline/v0.14.0-preview.1/build/images/scripts/copy-artifacts.sh /usr/local/bin/copy-artifacts
-COPY build/images/scripts/build.sh /usr/local/bin/go-build
-RUN chmod +rx /usr/local/bin/go-build && \
+ADD https://raw.githubusercontent.com/opendevstack/ods-pipeline/v0.15.0/build/images/scripts/cache-build.sh /usr/local/bin/cache-build
+ADD https://raw.githubusercontent.com/opendevstack/ods-pipeline/v0.15.0/build/images/scripts/copy-build-if-cached.sh /usr/local/bin/copy-build-if-cached
+ADD https://raw.githubusercontent.com/opendevstack/ods-pipeline/v0.15.0/build/images/scripts/copy-artifacts.sh /usr/local/bin/copy-artifacts
+COPY build/images/scripts/action.sh /usr/local/bin/go-build-action
+COPY build/images/scripts/build.sh /usr/local/bin/go-build-script
+RUN chmod +rx /usr/local/bin/go-build-action && \
+    chmod +rx /usr/local/bin/go-build-script && \
     chmod +rx /usr/local/bin/cache-build && \
     chmod +rx /usr/local/bin/copy-build-if-cached && \
     chmod +rx /usr/local/bin/copy-artifacts
@@ -28,3 +30,5 @@ VOLUME /workspace/source
 RUN git config --system --add safe.directory '/workspace/source'
 
 USER 1001
+
+ENTRYPOINT [ "go-build-action" ]

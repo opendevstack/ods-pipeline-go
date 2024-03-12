@@ -54,7 +54,7 @@ spec:
         instead, it will be resolved from the workspace. See the task definition
         for details how the build script is invoked.
       type: string
-      default: "/usr/local/bin/go-build"
+      default: "/usr/local/bin/go-build-script"
     - name: pre-test-script
       description: Script to execute before running tests, relative to the working directory.
       type: string
@@ -76,43 +76,20 @@ spec:
             configMapKeyRef:
               key: debug
               name: ods-pipeline
-      script: |
-        echo -n "" > $(results.build-reused-from-location.path)
-        cache_build_key=go-$(params.go-os)-$(params.go-arch)
-        if copy-build-if-cached \
-          --cache-build=$(params.cache-build) \
-          --cache-build-key="$cache_build_key" \
-          --build-extra-inputs=$(params.build-extra-inputs) \
-          --cached-outputs=$(params.output-dir) \
-          --cache-location-used-path=$(results.build-reused-from-location.path) \
-          --working-dir=$(params.working-dir) \
-          --debug=${DEBUG} ; then
-          exit 0
-        fi
-        # Default build script is build/images/scripts/build.sh.
-        set +e 
-        $(params.build-script) \
-          --working-dir=$(params.working-dir) \
-          --enable-cgo=$(params.enable-cgo) \
-          --go-os=$(params.go-os) \
-          --go-arch=$(params.go-arch) \
-          --pre-test-script=$(params.pre-test-script) \
-          --output-dir=$(params.output-dir) \
-          --debug=${DEBUG}
-        build_exit=$?
-        set -e
-        copy-artifacts --debug=${DEBUG}
-        if [ $build_exit -ne 0 ]; then
-          exit $build_exit
-        fi
-        cache-build \
-          --cache-build=$(params.cache-build) \
-          --cache-build-key="$cache_build_key" \
-          --build-extra-inputs=$(params.build-extra-inputs) \
-          --cached-outputs=$(params.output-dir) \
-          --cache-location-used-path=$(results.build-reused-from-location.path) \
-          --working-dir=$(params.working-dir) \
-          --debug=${DEBUG}
+      command: [ "go-build-action" ]
+      args: [
+        "-build-extra-inputs=$(params.build-extra-inputs)",
+        "-build-reused-from-location-path=$(results.build-reused-from-location.path)",
+        "-build-script=$(params.build-script)",
+        "-cache-build=$(params.cache-build)",
+        "-debug=${DEBUG}",
+        "-enable-cgo=$(params.enable-cgo)",
+        "-go-os=$(params.go-os)",
+        "-go-arch=$(params.go-arch)",
+        "-output-dir=$(params.output-dir)",
+        "-pre-test-script=$(params.pre-test-script)",
+        "-working-dir=$(params.working-dir)",
+      ]
       volumeMounts:
         - mountPath: /etc/ssl/certs/private-cert.pem
           name: private-cert
